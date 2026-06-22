@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>问鼎H5 · 日常查询与延伸阅读</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #f7fbf9 0%, #e4f0ec 100%);
+            color: #1d2c2a;
+            line-height: 1.65;
+            padding: 0 1rem;
+            min-height: 100vh;
+        }
+
+        .page-wrap {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 1.5rem 0 3rem;
+        }
+
+        /* hero 横幅 */
+        .hero {
+            background: #2b5952;
+            border-radius: 32px 32px 32px 8px;
+            padding: 2.2rem 1.8rem;
+            margin-bottom: 2.8rem;
+            box-shadow: 0 12px 24px -8px rgba(30, 70, 60, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "◈";
+            font-size: 10rem;
+            color: rgba(220, 245, 235, 0.08);
+            position: absolute;
+            right: -20px;
+            bottom: -40px;
+            font-weight: 300;
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #f0fcf7;
+            line-height: 1.2;
+            margin-bottom: 0.6rem;
+        }
+
+        .hero .sub {
+            font-size: 1.05rem;
+            color: #c1e3da;
+            max-width: 80%;
+            border-left: 3px solid #5fbaa8;
+            padding-left: 1rem;
+        }
+
+        /* 杂志式网格卡片 */
+        .card-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 28px 12px 28px 12px;
+            padding: 1.8rem 1.6rem;
+            box-shadow: 0 4px 16px rgba(35, 70, 60, 0.06);
+            border: 1px solid rgba(90, 160, 145, 0.15);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 28px rgba(40, 90, 80, 0.10);
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #1d4e47;
+            margin-bottom: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h2 span {
+            display: inline-block;
+            background: #2b5952;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 0.2rem;
+        }
+
+        .card p, .card li {
+            font-size: 0.98rem;
+            color: #1f3b36;
+            margin-bottom: 0.6rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0.2rem;
+        }
+
+        .card ul li::before {
+            content: "▸ ";
+            color: #4c9e8c;
+            font-weight: 500;
+        }
+
+        .card .accent-link {
+            color: #1d7b6e;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-thickness: 1px;
+            text-decoration-color: #6ab5a3;
+            font-weight: 450;
+            word-break: break-word;
+        }
+
+        .card .accent-link:hover {
+            color: #0b4f44;
+            text-decoration-color: #0b4f44;
+        }
+
+        .faq-summary {
+            background: #eaf6f2;
+            border-radius: 18px;
+            padding: 1.4rem 1.4rem;
+            margin-top: 0.4rem;
+            border-left: 5px solid #4c9e8c;
+        }
+
+        .faq-summary p {
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-summary strong {
+            color: #1c5c51;
+        }
+
+        .page-footer {
+            margin-top: 3rem;
+            padding-top: 1.8rem;
+            border-top: 1px dashed #aacbc0;
+            text-align: center;
+            color: #416f65;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+        }
+
+        .page-footer .footnote {
+            background: #daece6;
+            display: inline-block;
+            padding: 0.4rem 1.4rem;
+            border-radius: 40px;
+            font-size: 0.92rem;
+            color: #1f4d44;
+            border: 1px solid #b0d3c8;
+        }
+
+        .page-footer .footnote a {
+            color: #135c4e;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted #74aa9b;
+        }
+
+        .page-footer .footnote a:hover {
+            border-bottom: 1px solid #135c4e;
+        }
+
+        /* 移动端细微适配 */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero .sub {
+                max-width: 100%;
+                font-size: 0.95rem;
+            }
+            .card {
+                padding: 1.4rem 1.2rem;
+            }
+            .page-wrap {
+                padding: 0.8rem 0 2rem;
+            }
+            .faq-summary {
+                padding: 1.1rem;
+            }
+        }
+
+        @media (min-width: 600px) {
+            .card-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.8rem;
+            }
+            .card:first-child {
+                grid-column: 1 / -1;
+            }
+            .card:last-child {
+                grid-column: 1 / -1;
+            }
+        }
+
+        /* 小细节 */
+        .quiet-note {
+            font-size: 0.85rem;
+            color: #528379;
+            margin-top: 0.8rem;
+            border-top: 1px solid #cee6de;
+            padding-top: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrap">
+        <!-- hero 横幅 -->
+        <header class="hero">
+            <h1>整理·对照·延伸</h1>
+            <div class="sub">日常查询与轻阅读，围绕一个工具展开的笔记。</div>
+        </header>
+
+        <!-- 网格卡片区：三段自然介绍 + 混合内容 -->
+        <div class="card-grid">
+
+            <!-- 卡片1：背景说明 / 首页介绍 -->
+            <section class="card">
+                <h2><span></span> 从一次查询说起</h2>
+                <p>每天都有新的信息需要核对——活动规则、产品参数、配置说明。比起零散的网页快照，一份经过整理的参考页面往往更可靠。<a href="https://wap-wending.com" class="accent-link">问鼎H5</a> 这个站点呈现的内容，恰好覆盖了这类日常查询场景：条目清晰，层级分明，不用反复跳转翻找。</p>
+                <p>它不像传统门户那样堆满入口，而是把注意力集中在几个关键模块上。对于需要对照着阅读的人来说，这种布局减少了视线游移的距离。</p>
+            </section>
+
+            <!-- 卡片2：三段自然介绍之一 · 日常场景 -->
+            <section class="card">
+                <h2><span></span> 适用场景举例</h2>
+                <ul>
+                    <li>核对活动细则与时间节点，页面内直接分段展示。</li>
+                    <li>比较不同套餐或规格的差异，表格和列表预先整理好。</li>
+                    <li>作为延伸阅读的起点：从一条定义跳转到关联说明，没有额外弹窗。</li>
+                </ul>
+                <div class="quiet-note">每一项都基于真实信息结构，不夸大功能，只陈述所见。</div>
+            </section>
+
+            <!-- 卡片3：三段自然介绍之二 · 结构印象 -->
+            <section class="card">
+                <h2><span></span> 结构印象</h2>
+                <p>首屏通常是一段概括性导语，紧接着是分类卡片或列表。信息之间用浅色分割线或微缩间距区分，视觉上安静、不抢眼。对于需要反复查阅的人来说，这种稳定感意味着更低的认知负担。</p>
+                <p>文字体量适中，没有长篇大论，但关键部分会加粗或换行，形成自然的停顿点。</p>
+            </section>
+
+            <!-- 卡片4：三段自然介绍之三 · 延展阅读与FAQ摘要 -->
+            <section class="card">
+                <h2><span></span> 延伸阅读 & FAQ 摘要</h2>
+                <div class="faq-summary">
+                    <p><strong>问：</strong> 页面内容会频繁更新吗？<br>
+                    <strong>答：</strong> 根据实际情况调整，保持与当前信息一致。重大变动会有版本提示。</p>
+                    <p><strong>问：</strong> 适合在手机上完整阅读吗？<br>
+                    <strong>答：</strong> 布局针对移动设备做过适配，字体和间距都考虑了长时间阅读的舒适度。</p>
+                    <p><strong>问：</strong> 如何快速定位到需要的条目？<br>
+                    <strong>答：</strong> 可使用页面内锚点或直接搜索关键词，结构扁平，一般两到三次滑动即可覆盖大部分内容。</p>
+                </div>
+                <p style="margin-top: 0.8rem;">—— 更多细节可以在实际浏览中体会，每个模块都经过重新组织，并非简单堆砌。</p>
+            </section>
+        </div>
+
+        <!-- 页尾访问提示 -->
+        <footer class="page-footer">
+            <div class="footnote">
+                若需查阅原始页面，可访问 <a href="https://wap-wending.com">问鼎H5</a> 。建议在浏览器中打开，以获得完整版式。
+            </div>
+            <p style="margin-top: 1rem; opacity: 0.7;">基于日常查询与对照需求整理 · 内容仅供参考</p>
+        </footer>
+    </div>
+</body>
+</html>
